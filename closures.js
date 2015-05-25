@@ -9,11 +9,11 @@ var outer = function(){
 //Above you're given a function that returns another function which has a closure over the name variable.
 //Invoke outer saving the return value into another variable called 'inner'.
 
-  //Code Here
+var inner = outer();
 
 //Once you do that, invoke inner.
 
-  //Code Here
+inner();
 
 
 
@@ -32,7 +32,11 @@ var callFriend = function(){
 //Above you're given a callFriend function that returns another function.
 //Do what you need to do in order to call your function and get 'Calling Jake at 435-215-9248' in your console.
 
-  //Code Here
+var x = callFriend();
+x(number = "435-215-9248");
+
+or you can use:
+callFriend()("435-215-9248");
 
 
 
@@ -44,7 +48,14 @@ var callFriend = function(){
   Write a function called makeCounter that makes the following code work properly.
 */
 
-  //Code Here
+var makeCounter = function() {
+  var number = 0;
+   return function() {
+      number++;
+    return number; 
+    }
+}
+
   var count = makeCounter();
   count() // 1
   count() // 2
@@ -62,8 +73,29 @@ var callFriend = function(){
   (which invokes the original function that was passed in) that can only ever be executed once.
 */
 
-  //Code Here
 
+var func = function(x) {
+  var ran = false;
+  return function() {
+    if(ran === false) {
+      x();
+      ran = true;
+    }
+  };
+};
+
+
+or you can use:
+
+
+function test(callback){
+  return function(){
+    callback();
+  }
+}
+
+test(function(){
+})
 
 
 //Next Problem
@@ -71,9 +103,17 @@ var callFriend = function(){
 
 
 /*
-  Now, similar to the last problem, write a function called 'fnCounter' that accepts two parameters. The first parameter will be an anonymous function and the second parameter, 'N', will be a number. Now, in 'fnCounter', allow the anonymous funciton to be invoked 'N' number of times. After it's been invoked 'N' number of times, return 'STOP'.
+  Now, similar to the last problem, write a function called 'fnCounter' that accepts two parameters. The first parameter will be an anonymous function and the second parameter, 
+  'N', will be a number. Now, in 'fnCounter', allow the anonymous funciton to be invoked 'N' number of times. After it's been invoked 'N' number of times, return 'STOP'.
 */
 
+
+var fnCounter = function(callback, N) {
+  for (var i = 0; i < N; i++) {
+    callback();
+  }
+  return "STOP";
+}
 
 
 //Next Problem
@@ -89,22 +129,28 @@ var callFriend = function(){
     }
   };
 
-  Above you have a function named counter. Examine the function (without running the code) then below write what you expect to happen when the funciton is invoked. *Hint: setTimeout calls a function or evaluates an expression after a specified number of milliseconds.
+counter();
+  Above you have a function named counter. Examine the function (without running the code) then below write what you expect to happen when the funciton is invoked. 
+  *Hint: setTimeout calls a function or evaluates an expression after a specified number of milliseconds.
 
-    //Answer Here
+
+
+  
+ The function will tell console count to 5 starting with number 1. Each second the console will be told to increment by 1. 
+
 
 
   Now, run the function in your console and note what happpens.
 
   Was your answer right or wrong?
 
-    //Answer Here
+  I was wrong. It's initial number was 6 and then it counted to 5, 1 each second. 
 
 
   Fix the counter function so that it works the way you expect it to work. (logging 1 then 2 then 3, etc)
 */
 
-    //Code Here
+    //Code Here ?
 
 
 
@@ -125,4 +171,18 @@ var callFriend = function(){
   *Hint: Don't let this fool you. Break down what's really happening here.
 */
 
+  
+var funcArray[];
+for (var i = 0; i < 6; i++) {
+  funcArray[i] = function() {
+    return i};
+}
 
+
+
+  funcArray[0]() //0
+  funcArray[1]() //1
+  funcArray[2]() //2
+  funcArray[3]() //3
+  funcArray[4]() //4
+  funcArray[5]() //5
